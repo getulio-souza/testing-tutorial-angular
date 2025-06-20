@@ -1,14 +1,18 @@
 import { CalculatorService } from "./calculator.service";
+import { LoggerService } from "./Services/logger.service";
 
-describe('CalculatorService', () => {
+describe('calculator service', ()=> {
   it('should add two numbers', () => {
-    const calcutator = new CalculatorService()
-    let result = calcutator.add(2, 2);
+    const loggerService = new LoggerService()
+    const calculator = new CalculatorService(loggerService);
+    let result = calculator.add(2,2);
     expect(result).toBe(4)
   });
-  it('should subtract two numbers', () => {
-    const calculator = new CalculatorService();
-    let result = calculator.subtract(2,2);
-    expect(result).toBe(0)
+
+  it('should subtract two numbers', ()=> {
+    const loggerService = new LoggerService();
+    const calcultator = new CalculatorService(loggerService);
+    let result = calcultator.subtract(4,2);
+    expect(result).toBe(2)
   })
 })
