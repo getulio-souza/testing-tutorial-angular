@@ -1,6 +1,9 @@
 import { of } from "rxjs";
 import { Post } from "../models/post"
 import { PostsComponent } from "./posts.component";
+import { TestBed } from "@angular/core/testing";
+import { PostComponent } from "../components/post/post.component";
+import { PostService } from "../Services/post.service";
 
 describe('post component', () => {
   let POSTS: Post[];
@@ -28,7 +31,18 @@ describe('post component', () => {
     ];
 
     mockPostService = jasmine.createSpyObj(['getPosts', 'deletePost']);
-    component = new PostsComponent(mockPostService)
+
+    TestBed.configureTestingModule({
+      providers: [
+        PostsComponent,
+        {
+          provide: PostService,
+          useValue: mockPostService,
+        },
+      ],
+    });
+
+    component = TestBed.inject(PostsComponent)
   });
 
   describe('delete method', () => {
