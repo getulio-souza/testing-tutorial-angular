@@ -15,4 +15,8 @@ export class LoggerService {
     // debugger
     this.messages.push(message)
   }
+
+  clear(){
+    this.messages = [];
+  }
 }

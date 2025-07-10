@@ -9,7 +9,8 @@ describe('calculator service', ()=> {
     console.log('calling before each');
     mockLoggerService = jasmine.createSpyObj('loggerService', ['log']);
     calculator = new CalculatorService(mockLoggerService);
-  })
+  });
+  
   it('should add two numbers', () => {
     console.log('calling add')
     // const loggerService = new LoggerService()
