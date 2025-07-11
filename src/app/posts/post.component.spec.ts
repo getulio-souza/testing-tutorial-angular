@@ -1,7 +1,7 @@
 import { of } from "rxjs";
 import { Post } from "../models/post"
 import { PostsComponent } from "./posts.component";
-import { TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { PostComponent } from "../components/post/post.component";
 import { PostService } from "../Services/post.service";
 
@@ -9,6 +9,7 @@ describe('post component', () => {
   let POSTS: Post[];
   let component: PostsComponent;
   let mockPostService: any;
+  let fixture: ComponentFixture<PostsComponent>
 
   //before each is used to initilize the component
   beforeEach(() => {
@@ -42,7 +43,8 @@ describe('post component', () => {
       ],
     });
 
-    component = TestBed.inject(PostsComponent)
+    fixture = TestBed.createComponent(PostsComponent);
+    component = fixture.componentInstance
   });
 
   describe('delete method', () => {
