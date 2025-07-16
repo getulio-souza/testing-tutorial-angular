@@ -24,9 +24,6 @@ describe('delete post', () => {
     expect(component).toBeDefined()
   });
 
-
-
-
   it('should render the post title in the anchor element', ()=> {
     const post: Post = {id: 1, body: 'body 1', title: 'title 1'};
     component.post = post;

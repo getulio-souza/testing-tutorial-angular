@@ -31,9 +31,10 @@ describe('post component', () => {
       },
     ];
 
-    mockPostService = jasmine.createSpyObj(['getPosts', 'deletePost']);
+    mockPostService = jasmine.createSpyObj('PostService',['getPosts', 'deletePost']);
 
     TestBed.configureTestingModule({
+      declarations: [PostsComponent],
       providers: [
         PostsComponent,
         {
@@ -44,16 +45,23 @@ describe('post component', () => {
     });
 
     fixture = TestBed.createComponent(PostsComponent);
-    component = fixture.componentInstance
+    component = fixture.componentInstance;
   });
 
   describe('delete method', () => {
+
     it('should delete the selected post from the posts', () => {
       component.posts = [...POSTS]
       mockPostService.deletePost.and.returnValue(of(true))
      component.deletePost(POSTS[1])
       expect(component.posts.length).toBe(2);
       expect(component.posts.find(p => p.id === 2)).toBeUndefined()
+    })
+
+    it('should set posts from the service directly', () => {
+      mockPostService.getPosts.and.returnValue(of(POSTS));
+      component.ngOnInit()
+      expect(component.posts.length).toBe(3)
     })
   })
 })

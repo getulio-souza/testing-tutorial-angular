@@ -8,20 +8,19 @@ import { PostService } from '../Services/post.service';
   styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent implements OnInit{
-delete(_t3: Post) {
-throw new Error('Method not implemented.');
-}
+
   constructor(
     private postService: PostService
   ){}
   posts: Post[] = [];
 
   ngOnInit(): void {
-
+    this.getPosts()
   }
 
   getPosts() {
     this.postService.getPosts().subscribe((posts) => {
+      console.log('posts retornados:', posts)
       this.posts = posts
     })
   }
