@@ -1,14 +1,21 @@
+import { TestBed } from "@angular/core/testing";
 import { CalculatorService } from "./calculator.service";
 import { LoggerService } from "./Services/logger.service";
 
 describe('calculator service', ()=> {
-  let mockLoggerService: any;
+  let loggerServiceSpy: jasmine.SpyObj<LoggerService>;
   let calculator: CalculatorService;
 
   beforeEach(()=> {
     console.log('calling before each');
-    mockLoggerService = jasmine.createSpyObj('loggerService', ['log']);
-    calculator = new CalculatorService(mockLoggerService);
+    loggerServiceSpy = jasmine.createSpyObj('loggerService', ['log']);
+    TestBed.configureTestingModule({
+      providers: [CalculatorService, {
+        provide: LoggerService, 
+        useValue: loggerServiceSpy
+      }]
+    })
+    calculator = TestBed.inject(CalculatorService)
   });
   
   it('should add two numbers', () => {
@@ -16,7 +23,7 @@ describe('calculator service', ()=> {
     // const loggerService = new LoggerService()
     let result = calculator.add(2,2);
     expect(result).toBe(4)
-    expect(mockLoggerService.log).toHaveBeenCalledTimes(1)
+    expect(loggerServiceSpy.log).toHaveBeenCalledTimes(1)
   });
 
   it('should subtract two numbers', ()=> {
