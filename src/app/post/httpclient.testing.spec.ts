@@ -21,9 +21,17 @@ describe('http client testing module', ()=> {
     })
 
 
-    it('should call the testing url with get request', ()=> {
-        httpClient.get<Data>(testUrl).subscribe();
-        
-    })
-    
+  it('should call the testing url with get request', () => {
+    const testData: Data = {name: 'getulio souza'}
+    httpClient.get<Data>(testUrl).subscribe((data: any) => {
+      expect(data).toEqual(testData)
+    });
+    const request = httpTestingController.expectOne(testUrl);
+    request.flush(testData)
+  })
+
+  it('should test multiple requests', () => {
+
+  })
+
 })
