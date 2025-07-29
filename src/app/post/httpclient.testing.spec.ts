@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http"
 import { TestBed } from "@angular/core/testing"
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-let testUrl = '/data'
+export let testUrl = '/data'
 
 interface Data {
     name:string
