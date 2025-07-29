@@ -11,13 +11,14 @@ describe('calculator service', ()=> {
     loggerServiceSpy = jasmine.createSpyObj('loggerService', ['log']);
     TestBed.configureTestingModule({
       providers: [CalculatorService, {
-        provide: LoggerService, 
+        provide: LoggerService,
         useValue: loggerServiceSpy
       }]
     })
     calculator = TestBed.inject(CalculatorService)
+    // loggerService = TestBed.inject(LoggerService)
   });
-  
+
   it('should add two numbers', () => {
     console.log('calling add')
     // const loggerService = new LoggerService()
