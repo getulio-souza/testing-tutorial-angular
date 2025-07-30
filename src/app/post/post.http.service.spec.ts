@@ -40,9 +40,21 @@ describe('postService (httpClientTestingModule)', ()=> {
                 expect(data).toEqual(POSTS)
                 done()
             })
+
+          postService.deletePost(POSTS[1]).subscribe()
+
             const request = httpTestingController.expectOne('https://jsonplaceholder.typicode.com/posts');
             request.flush(POSTS)
             expect(request.request.method).toBe('GET')
         })
     })
+
+  describe('get post by id', () => {
+    it('should return single post when post is called by post it ', () => {
+      postService.getPost(1).subscribe()
+      postService.getPost(2).subscribe()
+      const request = httpTestingController.expectOne(`https://jsonplaceholder.typicode.com/posts/1`)
+      expect(request.request.method).toBe('GET')
+    })
+  })
 })
