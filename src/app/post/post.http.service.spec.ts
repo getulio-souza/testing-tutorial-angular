@@ -57,4 +57,8 @@ describe('postService (httpClientTestingModule)', ()=> {
       expect(request.request.method).toBe('GET')
     })
   })
+
+  // afterEach(() => {
+  //   httpTestingController.verify()
+  // })
 })
