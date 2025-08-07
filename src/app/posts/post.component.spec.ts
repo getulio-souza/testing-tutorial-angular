@@ -64,12 +64,12 @@ describe('post component', () => {
 
     it('should create exact same number of Post component with posts',()=> {
       mockPostService.getPosts.and.returnValue(of(POSTS));
-      fixture.detectChanges() //like calling ngOnInit from the component 
+      fixture.detectChanges() //like calling ngOnInit from the component
       const postComponent = fixture.debugElement.queryAll(By.directive(PostComponent))
       expect(postComponent.length).toEqual(POSTS.length)
     })
 
-    //testing a single post 
+    //testing a single post
 
     it('should test if each post title matches each post title from the POSTS', ()=> {
       mockPostService.getPosts.and.returnValue(of(POSTS));
@@ -104,5 +104,34 @@ describe('post component', () => {
       component.ngOnInit()
       expect(component.posts.length).toBe(3)
     })
+
+    it('should call the delete method when post component button is clicked', () => {
+      spyOn(component, 'deletePost')
+      mockPostService.getPosts.and.returnValue(of(POSTS))
+      fixture.detectChanges()
+
+      const postComponentDebugElement = fixture.debugElement.queryAll(By.directive(PostComponent));
+
+      for (let i = 0; i < postComponentDebugElement.length; i++){
+        const postComponentInstance = postComponentDebugElement[i].componentInstance as PostComponent
+        postComponentInstance.delete.emit()
+        // postComponentDebugElement[i].query(By.css('button')).triggerEventHandler('click', {preventDefault: ()=> {}})
+        expect(component.deletePost).toHaveBeenCalledWith(POSTS[i])
+      }
+    })
+
+    it('should call the delete method when the delete event is emitted in post component', () => {
+      spyOn(component, 'deletePost')
+      mockPostService.getPosts.and.returnValue(of(POSTS));
+      fixture.detectChanges();
+
+      let postComponentDEs = fixture.debugElement.queryAll(By.directive(PostComponent))
+      for (let i = 0; i < postComponentDEs.length; i++){
+        const deletePost = postComponentDEs[i].componentInstance as PostComponent
+        deletePost.delete.emit(POSTS[i])
+        expect(component.deletePost).toHaveBeenCalledWith(POSTS[i])
+      }
+    })
   })
 })
+
